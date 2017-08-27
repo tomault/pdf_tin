@@ -46,7 +46,7 @@ namespace {
   }
 }
 
-TEST(PageTests, GetPage) {
+TEST(PageTests, GetPageByIndex) {
   Document doc = Document::fromFile(getPdfUrl("TestDoc1.pdf"));
   Page page = doc.page(0);
 
@@ -69,4 +69,44 @@ TEST(PageTests, GetPage) {
   // 	    << "width = " << page.width() << std::endl
   // 	    << "height = " << page.height() << std::endl
   // 	    << "duration = " << page.duration() << std::endl;
+}
+
+TEST(PageTests, GetTextOnPage) {
+  Document doc = Document::fromFile(getPdfUrl("TestDoc1.pdf"));
+  Page page = doc.page(0);
+  TextStyleSegment liberationSerif12("LiberationSerif", 12, false,
+				     Color(0, 0, 0), 0, 0);
+  TextStyleSegment liberationSerif10("LiberationSerif", 10, false,
+				     Color(0, 0, 0), 0, 0);
+  std::vector<Text> text = page.text();
+  std::vector<Text> truth{
+    Text{ "T", BoundingBox(56.800, 57.208, 64.096, 70.492), liberationSerif12 },
+    Text{ "h", BoundingBox(64.096, 57.208, 70.096, 70.492), liberationSerif12 },
+    Text{ "i", BoundingBox(70.096, 57.208, 73.396, 70.492), liberationSerif12 },
+    Text{ "s", BoundingBox(73.396, 57.208, 78.064, 70.492), liberationSerif12 },
+    Text{ "i", BoundingBox(81.184, 57.208, 84.484, 70.492), liberationSerif12 },
+    Text{ "s", BoundingBox(84.484, 57.208, 89.152, 70.492), liberationSerif12 },
+    Text{ "a", BoundingBox(92.176, 57.208, 97.492, 70.492), liberationSerif12 },
+    Text{ "t", BoundingBox(100.48, 57.208, 103.78, 70.492), liberationSerif12 },
+    Text{ "e", BoundingBox(64.096, 57.208, 70.096, 70.492), liberationSerif12 },
+    Text{ "s", BoundingBox(64.096, 57.208, 70.096, 70.492), liberationSerif12 },
+    Text{ "t", BoundingBox(64.096, 57.208, 70.096, 70.492), liberationSerif12 },
+    Text{ ".", BoundingBox(64.096, 57.208, 70.096, 70.492), liberationSerif12 },
+
+  };
+  uint32_t ndx = 1;
+
+  for (auto& t : text) {
+    std::cout << "Text #" << ndx << " at (" << t.bounds().left() << ", "
+	      << t.bounds().top() << " to " << t.bounds().right() << ", "
+	      << t.bounds().bottom() << ")\n  [" << t.text() << "]\n";
+    for (auto& style : t.styles()) {
+      std::cout << "  (" << style.start() << ", " << style.end()
+		<< ") font=" << style.fontName() << ":" << style.fontSize()
+		<< ", underlined=" << (style.underlined() ? "yes" : "no")
+		<< ", color=" << style.color() << "\n";
+    }
+    std::cout << std::endl;
+    ++ndx;
+  }
 }

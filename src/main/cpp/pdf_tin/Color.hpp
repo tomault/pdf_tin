@@ -38,9 +38,11 @@ namespace pdf_tin {
   };
 
   inline std::ostream& operator<<(std::ostream& out, const Color& c) {
+    auto tmp = out.flags();
     return out << std::hex << std::setw(2) << std::setfill('0') << c.red()
 	       << std::hex << std::setw(2) << std::setfill('0') << c.green()
-	       << std::hex << std::setw(2) << std::setfill('0') << c.blue();
+	       << std::hex << std::setw(2) << std::setfill('0') << c.blue()
+	       << std::setiosflags(tmp);
   }
   
 }

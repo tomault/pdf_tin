@@ -51,7 +51,7 @@ namespace pdf_tin {
     ImmutableList(const ImmutableList<T>& other):
         Allocator(other), items_(this->allocate(other.size())),
         end_(items_ + other.size()) {
-      std::copy(other.begin(), other.end(), items_);
+      std::uninitialized_copy(other.begin(), other.end(), items_);
     }
 
     template <typename U>
@@ -59,7 +59,7 @@ namespace pdf_tin {
 		  const Allocator& allocator = Allocator()):
         Allocator(allocator), items_(this->allocate(other.size())),
         end_(items_ + other.size()) {
-      std::copy(other.begin(), other.end(), items_);
+      std::uninitialized_copy(other.begin(), other.end(), items_);
     }
 
     ImmutableList(ImmutableList<T>&& other):

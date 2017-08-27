@@ -25,6 +25,12 @@ namespace pdf_tin {
       // Intentionally left blank
     }
 
+    Text(const std::string& text, const BoundingBox& bounds,
+	 const std::initializer_list<TextStyleSegment>& styles):
+        text_(text), bounds_(bounds), styles_(styles)  {
+      // Intentionally left blank
+    }
+
     Text(const Text&) = default;
     Text(Text&&) = default;
 

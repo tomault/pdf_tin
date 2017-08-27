@@ -26,6 +26,11 @@ namespace pdf_tin {
         startOffset_(startOffset), endOffset_(endOffset) {
       // Intentionally left blank
     }
+    TextStyleSegment(const TextStyle& style, uint32_t startOffset,
+		     uint32_t endOffset):
+        TextStyle(style), startOffset_(startOffset), endOffset_(endOffset) {
+      // Intentionally left blank
+    }
     TextStyleSegment(const TextStyleSegment&) = default;
     TextStyleSegment(TextStyleSegment&&) = default;
 

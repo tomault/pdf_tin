@@ -3,6 +3,8 @@
 #include <pdf_tin/detail/GListPtr.hpp>
 #include <poppler/glib/poppler.h>
 
+#include <iostream>
+
 using namespace pdf_tin;
 
 const char* Page::label() const {
@@ -57,7 +59,7 @@ std::vector<Text> Page::text() const {
 				  styles.size(), styles.begin());
 	}
       }
-    }						  
+    }
     g_free(regions);
     return std::move(textBlocks);  
   } catch(...) {
