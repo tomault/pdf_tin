@@ -20,7 +20,7 @@ namespace pdf_tin {
     double height() const { return bottom() - top(); }
 
     _PopplerRectangle* toRect(_PopplerRectangle* r) const;
-    
+
     BoundingBox& operator=(const BoundingBox&) = default;
     BoundingBox& operator=(const _PopplerRectangle& other);
     

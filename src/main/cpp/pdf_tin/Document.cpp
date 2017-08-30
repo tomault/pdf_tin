@@ -123,10 +123,10 @@ std::string Document::metadata() const {
 }
 
 Page Document::page(uint32_t index) const {
-  _PopplerPage* p = poppler_document_get_page(doc_.get(), (int)index);
-  if (!p) {
+  if (index >= numPages()) {
     throw NoSuchPageError(index);
   }
+  _PopplerPage* p = poppler_document_get_page(doc_.get(), (int)index);
   return Page(p);
 }
 
