@@ -6,14 +6,14 @@
 
 class PyStringPtr : public PyObjectPtr {
 public:
-  PyStringPtr();
-  PyStringPtr(const char* text);
-  PyStringPtr(const std::string& text);
+  PyStringPtr() : PyObjectPtr() { }
+  explicit PyStringPtr(const char* text);
+  explicit PyStringPtr(const std::string& text) : PyStringPtr(text.c_str()) { }
   PyStringPtr(const PyStringPtr&) = default;
   PyStringPtr(PyStringPtr&&) = default;
 
   const char* text() const;
-  std::string toStr() const;
+  std::string toStr() const { return std::string(text); }
   
   PyStringPtr& operator=(const PyStringPtr&) = default;
   PyStringPtr& operator=(PyStringPtr&&) = default;
