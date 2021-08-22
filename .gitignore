@@ -33,3 +33,6 @@
 
 # emacs backup files
 *~
+
+# build directories
+build/
